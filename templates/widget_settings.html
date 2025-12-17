@@ -1,0 +1,497 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Restaurant Dashboard – Restaurant Bot</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background: #eef1f5;
+      font-family: "Inter", sans-serif;
+    }
+
+    /* NAVBAR */
+    .navbar-custom {
+      background: linear-gradient(90deg, #0f172a, #1e293b, #334155);
+      padding: 0.9rem 1.2rem;
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #fff !important;
+    }
+
+    /* Logo / initials in navbar */
+    .nav-logo-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+      flex-shrink: 0;
+    }
+
+    .nav-logo-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      object-fit: cover;
+      display: none;
+      flex-shrink: 0;
+    }
+
+    /* ULTRA GLASS CARD */
+    .glass-card {
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.09);
+      transition: all 0.25s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    /* METRIC CARDS */
+    .stat-card {
+      border-radius: 16px;
+      padding: 1.5rem 1.4rem;
+      color: #fff;
+      transition: transform 0.15s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .stat-1 {
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+    }
+
+    .stat-2 {
+      background: linear-gradient(135deg, #10b981, #047857);
+    }
+
+    .stat-3 {
+      background: linear-gradient(135deg, #f59e0b, #b45309);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .stat-value {
+      font-size: 1.9rem;
+      font-weight: 700;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-weight: 600;
+      font-size: 1.15rem;
+    }
+
+    /* PANEL HEADERS */
+    .panel-heading {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #334155;
+    }
+
+    /* Restaurant info card */
+    .restaurant-info-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      object-fit: cover;
+      display: none;
+    }
+
+    .restaurant-info-initials {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #fff;
+      background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+    }
+
+    /* CHATBOT PREVIEW BUTTON */
+    #chatbot-preview-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border: none;
+      color: white;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: 0.2s ease;
+      z-index: 50;
+    }
+
+    #chatbot-preview-btn:hover {
+      transform: scale(1.07);
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-dark navbar-custom shadow-sm mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <!-- Logo / initials -->
+        <div id="restaurant-logo-fallback" class="nav-logo-circle"></div>
+        <img id="restaurant-logo" class="nav-logo-img" src="" alt="Logo" />
+
+        <span id="restaurant-name">Loading...</span>
+      </a>
+
+      <div class="d-flex gap-2">
+        <!-- MENU ITEMS DROPDOWN -->
+        <div class="dropdown me-2">
+          <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            Menu Items
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="/api/menu/demo/" target="_blank">Add Manually</a></li>
+            <li><a class="dropdown-item" href="/api/restaurants/upload-demo/" target="_blank">Upload via PDF / Images</a></li>
+          </ul>
+        </div>
+
+        <!-- NEW: Login button -->
+        <a href="http://127.0.0.1:8000/" class="btn btn-outline-light btn-sm">
+          Login
+        </a>
+
+        <button id="logout-btn" class="btn btn-warning btn-sm">Logout</button>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="container mb-5">
+
+    <div class="row g-4">
+
+      <!-- LEFT MAIN -->
+      <div class="col-lg-8">
+
+        <!-- RESTAURANT INFO CARD -->
+        <div class="glass-card card mb-4">
+          <div class="card-body d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center justify-content-center">
+              <div id="restaurant-info-fallback" class="restaurant-info-initials"></div>
+              <img id="restaurant-info-logo" class="restaurant-info-logo" src="" alt="Restaurant Logo" />
+            </div>
+            <div>
+              <div id="restaurant-name-main" class="fw-semibold"></div>
+              <div id="restaurant-tagline" class="text-muted small mb-1"></div>
+              <span id="restaurant-status" class="badge rounded-pill bg-success">
+                Online
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="section-title mb-2">Today's Summary</div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <div class="stat-card stat-1">
+              <div class="stat-label mb-1">Orders</div>
+              <div id="stat-orders" class="stat-value">—</div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="stat-card stat-2">
+              <div class="stat-label mb-1">Revenue</div>
+              <div id="stat-revenue" class="stat-value">—</div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="stat-card stat-3">
+              <div class="stat-label mb-1">Active Users</div>
+              <div id="stat-users" class="stat-value">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WIDGET INTEGRATION PANEL -->
+        <div class="glass-card card mb-4">
+          <div class="card-header bg-transparent fw-semibold">
+            Widget Integration <span class="badge bg-dark ms-2">Developers</span>
+          </div>
+
+          <div class="card-body">
+
+            <!-- Token -->
+            <div class="glass-card card mb-4">
+              <div class="card-header bg-transparent panel-heading">Public Token</div>
+              <div class="card-body">
+                <p><strong>Token:</strong> <code id="widget-token"></code></p>
+                <p class="small text-muted">Iframe URL: <a href="#" id="iframe-url" target="_blank"></a></p>
+              </div>
+            </div>
+
+            <!-- Script Snippet -->
+            <div class="glass-card card mb-4">
+              <div class="card-header bg-transparent panel-heading">Floating Widget Script</div>
+              <div class="card-body">
+                <textarea class="form-control" id="script-snippet" rows="6" readonly onclick="this.select()"></textarea>
+              </div>
+            </div>
+
+            <!-- Iframe -->
+            <div class="glass-card card">
+              <div class="card-header bg-transparent panel-heading">Iframe Embed</div>
+              <div class="card-body">
+                <textarea class="form-control" id="iframe-snippet" rows="6" readonly onclick="this.select()"></textarea>
+                <p class="small text-muted mt-2">You can adjust width/height.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT PANELS -->
+      <div class="col-lg-4">
+
+        <div class="section-title mb-2">Insights</div>
+
+        <!-- Recent Orders -->
+        <div class="glass-card card mb-3">
+          <div class="card-header bg-transparent panel-heading">Recent Orders</div>
+          <div class="card-body small text-muted" id="recent-orders">
+            No data yet.
+          </div>
+        </div>
+
+        <!-- Popular Items (we'll show categories here) -->
+        <div class="glass-card card mb-3">
+          <div class="card-header bg-transparent panel-heading">Menu Categories</div>
+          <div class="card-body small text-muted" id="popular-items">
+            Loading categories…
+          </div>
+        </div>
+
+        <!-- Chatbot Performance -->
+        <div class="glass-card card">
+          <div class="card-header bg-transparent panel-heading">Chatbot Performance</div>
+          <div class="card-body small text-muted" id="chatbot-performance">
+            AI accuracy, success rate & trends coming soon.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CHATBOT PREVIEW BUTTON -->
+  <button id="chatbot-preview-btn" title="Chatbot Preview">💬</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const ACCESS_TOKEN_KEY = "rb_access_token";
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+
+    let iframeUrlGlobal = null;
+
+    if (!accessToken) {
+      alert("Please login first.");
+      window.location.href = "/";
+    }
+
+    // Helper: generate initials from restaurant name
+    function getInitials(name) {
+      if (!name) return "R";
+      const parts = name.split(" ").filter(Boolean);
+      const firstTwo = parts.slice(0, 2);
+      return firstTwo.map(p => p[0].toUpperCase()).join("") || "R";
+    }
+
+    // 🔹 Hits WidgetSettingsApiView (your updated API)
+    fetch("/api/chatbot/dashboard/widget/", {
+      headers: { Authorization: "Bearer " + accessToken }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Failed to load dashboard: " + res.status);
+        }
+        return res.json();
+      })
+      .then(data => {
+        const restaurant = data.restaurant || {};
+        const widget = data.widget || {};
+        const snippets = data.snippets || {};
+        const metrics = data.metrics || {};           // optional, future
+        const menuSummary = data.menu_summary || {};  // NEW
+        const categories = Array.isArray(menuSummary.categories)
+          ? menuSummary.categories
+          : [];
+
+        const name = restaurant.name || "Your Restaurant";
+        const logoUrl = restaurant.logo_url || null;
+
+        // Optional future fields (not yet in API, safe defaults)
+        const city = restaurant.city || restaurant.location || "";
+        const cuisine = restaurant.cuisine || "";
+
+        // NAVBAR: name + logo / fallback
+        const navNameEl = document.getElementById("restaurant-name");
+        const navLogoImg = document.getElementById("restaurant-logo");
+        const navLogoFallback = document.getElementById("restaurant-logo-fallback");
+
+        navNameEl.textContent = name + " Dashboard";
+
+        if (logoUrl) {
+          navLogoImg.src = logoUrl;
+          navLogoImg.style.display = "inline-block";
+          navLogoFallback.style.display = "none";
+        } else {
+          navLogoFallback.textContent = getInitials(name);
+          navLogoFallback.style.display = "flex";
+          navLogoImg.style.display = "none";
+        }
+
+        // RESTAURANT INFO CARD
+        const infoNameEl = document.getElementById("restaurant-name-main");
+        const infoTaglineEl = document.getElementById("restaurant-tagline");
+        const infoLogoImg = document.getElementById("restaurant-info-logo");
+        const infoFallback = document.getElementById("restaurant-info-fallback");
+
+        if (infoNameEl) infoNameEl.textContent = name;
+
+        const taglineParts = [];
+        if (cuisine) taglineParts.push(cuisine);
+        if (city) taglineParts.push(city);
+        infoTaglineEl.textContent = taglineParts.join(" · ") || "Restaurant Bot Dashboard";
+
+        if (logoUrl) {
+          infoLogoImg.src = logoUrl;
+          infoLogoImg.style.display = "block";
+          infoFallback.style.display = "none";
+        } else {
+          infoFallback.textContent = getInitials(name);
+          infoFallback.style.display = "flex";
+          infoLogoImg.style.display = "none";
+        }
+
+        // STATS (if provided, otherwise keep "—")
+        const statOrders = document.getElementById("stat-orders");
+        const statRevenue = document.getElementById("stat-revenue");
+        const statUsers = document.getElementById("stat-users");
+
+        if (metrics.orders_today != null) {
+          statOrders.textContent = metrics.orders_today;
+        }
+        if (metrics.revenue_today != null) {
+          statRevenue.textContent = "₹" + metrics.revenue_today;
+        }
+        if (metrics.chat_users_today != null) {
+          statUsers.textContent = metrics.chat_users_today;
+        }
+
+        // Widget token + URL
+        document.getElementById("widget-token").textContent = widget.public_token || "";
+
+        const url = widget.iframe_src || "";
+        iframeUrlGlobal = url;
+
+        const a = document.getElementById("iframe-url");
+        a.textContent = url || "(not configured)";
+        if (url) a.href = url;
+
+        // Snippets
+        document.getElementById("script-snippet").value = snippets.script || "";
+        document.getElementById("iframe-snippet").value = snippets.iframe || "";
+
+        // 🔹 Render menu categories (from menu_summary.categories)
+        const popularItemsEl = document.getElementById("popular-items");
+        if (popularItemsEl) {
+          if (!categories.length) {
+            popularItemsEl.textContent = "No active menu items yet.";
+          } else {
+            popularItemsEl.innerHTML = "";
+            const list = document.createElement("ul");
+            list.className = "list-unstyled mb-0 small";
+
+            categories.forEach(catRow => {
+              const li = document.createElement("li");
+
+              // ✅ FIX: support new key 'category_name' + fallback old key
+              const catName = catRow.category_name || catRow["category__name"] || "(Uncategorized)";
+
+              const count = catRow.count ?? 0;
+              li.textContent = `${catName} (${count} items)`;
+              list.appendChild(li);
+            });
+
+            popularItemsEl.appendChild(list);
+          }
+        }
+
+        // (Optional future) recent_orders, performance etc. yahan handle ho sakta hai
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Error loading dashboard. Please refresh or re-login.");
+      });
+
+    document.getElementById("chatbot-preview-btn").onclick = () => {
+      if (!iframeUrlGlobal) return alert("Widget not ready.");
+      window.open(iframeUrlGlobal, "_blank");
+    };
+
+    document.getElementById("logout-btn").onclick = () => {
+      localStorage.clear();
+      window.location.href = "/";
+    };
+  </script>
+
+</body>
+
+</html>

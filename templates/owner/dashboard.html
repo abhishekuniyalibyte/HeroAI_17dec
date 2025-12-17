@@ -1,0 +1,232 @@
+{% extends "owner/base_owner.html" %}
+
+{% block title %}Owner Dashboard{% endblock %}
+{% block store_name %}Raj Juice Bar{% endblock %}
+
+{% block content %}
+
+<!-- TOP FOUR METRIC CARDS -->
+<div class="row g-4 mb-4 dashboard-metrics">
+  <!-- TOTAL STORES -->
+  <div class="col-xl-3 col-lg-6 col-md-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div>
+          <div class="metric-title text-muted fw-semibold text-uppercase">
+            Total Stores
+          </div>
+          <div class="metric-value fw-bold mt-2">1</div>
+        </div>
+        <div
+          class="rounded-circle d-flex align-items-center justify-content-center metric-icon"
+          style="background:#EEF2FF;">
+          <i class="bi bi-graph-up-arrow" style="font-size:1.6rem;color:#4F46E5;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL CUSTOMERS -->
+  <div class="col-xl-3 col-lg-6 col-md-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div>
+          <div class="metric-title text-muted fw-semibold text-uppercase">
+            Total Customers
+          </div>
+          <div class="metric-value fw-bold mt-2">4</div>
+        </div>
+        <div
+          class="rounded-circle d-flex align-items-center justify-content-center metric-icon"
+          style="background:#ECFEFF;">
+          <i class="bi bi-people-fill" style="font-size:1.6rem;color:#0EA5E9;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL ORDERS -->
+  <div class="col-xl-3 col-lg-6 col-md-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div>
+          <div class="metric-title text-muted fw-semibold text-uppercase">
+            Total Orders
+          </div>
+          <div class="metric-value fw-bold mt-2">0</div>
+        </div>
+        <div
+          class="rounded-circle d-flex align-items-center justify-content-center metric-icon"
+          style="background:#FEF9C3;">
+          <i class="bi bi-bag-check-fill" style="font-size:1.6rem;color:#EAB308;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL REVENUE -->
+  <div class="col-xl-3 col-lg-6 col-md-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div>
+          <div class="metric-title text-muted fw-semibold text-uppercase">
+            Total Revenue
+          </div>
+          <div class="metric-value fw-bold mt-2">₹0</div>
+        </div>
+        <div
+          class="rounded-circle d-flex align-items-center justify-content-center metric-icon"
+          style="background:#FCE7F3;">
+          <i class="bi bi-currency-rupee" style="font-size:1.6rem;color:#DB2777;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVENUE + ORDERS CHART ROW -->
+<div class="row g-3 mb-4">
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <div class="text-uppercase text-muted small fw-semibold">Revenue</div>
+            <div class="small text-muted">of the yearly from all revenue</div>
+          </div>
+        </div>
+        <!-- 🔹 Chart container -->
+        <div id="revenue-chart" style="height:260px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <div class="text-uppercase text-muted small fw-semibold">Orders</div>
+            <div class="small text-muted">of the yearly from all orders</div>
+          </div>
+        </div>
+        <!-- 🔹 Chart container -->
+        <div id="orders-chart" style="height:260px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} <!-- BOTTOM SECTION: quick links / recent activity -->
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-white fw-semibold text-uppercase small">
+        Quick Actions
+      </div>
+      <div class="card-body d-flex flex-wrap gap-2">
+        <a href="/owner/menu/" class="btn btn-sm btn-primary">
+          <i class="bi bi-upload me-1"></i> Upload Menu
+        </a>
+        <a href="/owner/menu-items/" class="btn btn-sm btn-outline-primary">
+          <i class="bi bi-plus-circle me-1"></i> Add Item
+        </a>
+        <a href="/owner/chatbot-settings/" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-robot me-1"></i> Chatbot Settings
+        </a>
+        <a href="/owner/analytics/" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-graph-up me-1"></i> View Analytics
+        </a>
+      </div>
+    </div>
+  </div> {% endcomment %}
+
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-white fw-semibold text-uppercase small">
+        Recent Activity
+      </div>
+      <div class="card-body small">
+        <ul class="mb-0">
+          <li>Uploaded <strong>Menu_Jan2025.pdf</strong> – 2 days ago</li>
+          <li>Updated price of <strong>Paneer Tikka</strong> – 1 week ago</li>
+          <li>Enabled chatbot on <strong>onlykulchas.com</strong> – 3 weeks ago</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- ApexCharts CDN -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const revenueLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const revenueData   = [10, 12, 8, 15, 18, 20, 22, 19, 17, 16, 14, 11];
+    const ordersData    = [2, 3, 1, 4, 5, 6, 7, 5, 4, 3, 2, 1];
+
+    const revenueOptions = {
+      chart: {
+        type: 'line',
+        height: 260,
+        toolbar: { show: true }
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 3
+      },
+      series: [{
+        name: 'Revenue',
+        data: revenueData
+      }],
+      xaxis: {
+        categories: revenueLabels
+      },
+      yaxis: {
+        labels: {
+          formatter: function (val) { return '₹' + val; }
+        }
+      },
+      dataLabels: { enabled: false }
+    };
+
+    const ordersOptions = {
+      chart: {
+        type: 'line',
+        height: 260,
+        toolbar: { show: true }
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 3
+      },
+      series: [{
+        name: 'Orders',
+        data: ordersData
+      }],
+      xaxis: {
+        categories: revenueLabels
+      },
+      dataLabels: { enabled: false }
+    };
+
+    const revEl = document.querySelector("#revenue-chart");
+    const ordEl = document.querySelector("#orders-chart");
+
+    if (revEl) {
+      const chart1 = new ApexCharts(revEl, revenueOptions);
+      chart1.render();
+    }
+    if (ordEl) {
+      const chart2 = new ApexCharts(ordEl, ordersOptions);
+      chart2.render();
+    }
+  });
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,151 @@
+{% extends "superadmin/base_superadmin.html" %}
+
+{% block title %}Super Admin Dashboard – Restaurant Bot{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <!-- TOP METRIC CARDS -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <p class="text-muted text-uppercase mb-1" style="font-size: .75rem;">Total Store</p>
+          <h3 class="mb-0">{{ total_stores|default:"8" }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <p class="text-muted text-uppercase mb-1" style="font-size: .75rem;">Total User</p>
+          <h3 class="mb-0">{{ total_users|default:"396" }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <p class="text-muted text-uppercase mb-1" style="font-size: .75rem;">Total Order</p>
+          <h3 class="mb-0">{{ total_orders|default:"403" }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH + ACTION ROW -->
+  <div class="row mb-3">
+    <div class="col-md-4 mb-2 mb-md-0">
+      <button class="btn btn-primary btn-sm">
+        <i class="bi bi-plus-circle me-1"></i> Add New Store
+      </button>
+    </div>
+    <div class="col-md-4 mb-2 mb-md-0">
+      <select class="form-select form-select-sm">
+        <option selected>All Status</option>
+        <option>Active</option>
+        <option>Inactive</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control" placeholder="Search store name / access code">
+      </div>
+    </div>
+  </div>
+
+  <!-- STORES TABLE -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+      <strong>All Stores</strong>
+      <small class="text-muted">Showing latest 20</small>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Store Name</th>
+              <th>Image</th>
+              <th>Access Code</th>
+              <th>No of Licenses</th>
+              <th>Store Address</th>
+              <th>Store Status</th>
+              <th>Created On</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if stores %}
+              {% for store in stores %}
+              <tr>
+                <td>{{ store.name }}</td>
+                <td>
+                  {% if store.logo %}
+                    <img src="{{ store.logo.url }}" alt="" style="width:32px;height:32px;border-radius:4px;object-fit:cover;">
+                  {% else %}
+                    <span class="badge bg-secondary">No Logo</span>
+                  {% endif %}
+                </td>
+                <td>{{ store.access_code|default:"—"}}</td>
+                <td>{{ store.license_count|default:"—" }}</td>
+                <td style="max-width:260px;">
+                  <span class="d-inline-block text-truncate" style="max-width:250px;">
+                    {{ store.address|default:"—"  }}
+                  </span>
+                </td>
+                <td>
+                  {% if store.is_active %}
+                    <span class="badge bg-success">Active</span>
+                  {% else %}
+                    <span class="badge bg-secondary">Inactive</span>
+                  {% endif %}
+                </td>
+                <td>{{ store.created_at|date:"M j, Y" }}</td>
+              </tr>
+              {% endfor %}
+            {% else %}
+              <!-- Dummy static rows for now; remove later when backend wired -->
+              <tr>
+                <td>Only Kulchas</td>
+                <td><span class="badge bg-secondary">Logo</span></td>
+                <td>61091</td>
+                <td>3</td>
+                <td>H Block, Sector 63, Noida, Uttar Pradesh, India</td>
+                <td><span class="badge bg-success">Active</span></td>
+                <td>Nov 6, 2025</td>
+                <td class="text-end">
+                  <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-secondary">View</button>
+                    <button class="btn btn-outline-secondary">Orders</button>
+                    <button class="btn btn-outline-secondary">Edit</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Raj Juice &amp; Co.</td>
+                <td><span class="badge bg-secondary">Logo</span></td>
+                <td>65176</td>
+                <td>5</td>
+                <td>Gaur City 2, Ghaziabad, Uttar Pradesh, India</td>
+                <td><span class="badge bg-success">Active</span></td>
+                <td>Sep 15, 2025</td>
+                <td class="text-end">
+                  <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-secondary">View</button>
+                    <button class="btn btn-outline-secondary">Orders</button>
+                    <button class="btn btn-outline-secondary">Edit</button>
+                  </div>
+                </td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

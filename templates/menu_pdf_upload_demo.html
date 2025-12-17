@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu Upload (PDF + Images)</title>
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Restaurant Menu Uploader</a>
+
+    <div class="d-flex align-items-center gap-2 ms-auto">
+      <!-- 🔹 New Dashboard button -->
+      <a
+        href="/api/chatbot/dashboard/widget/show/"
+        class="btn btn-outline-light btn-sm"
+      >
+        Dashboard
+      </a>
+      <span class="navbar-text small" id="nav-user-label"></span>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4 mb-5">
+
+  <!-- Warning if no token -->
+  <div id="login-warning" class="alert alert-warning d-none">
+    No API token found. Please
+    <a href="/api/accounts/login-demo/" class="alert-link">login first</a>.
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+
+      <div class="text-center mb-3">
+        <h3 class="fw-semibold mb-1">Upload Menu Files</h3>
+        <p class="text-muted mb-0 small">
+          Upload menu PDFs and/or images. System will extract menu automatically.
+        </p>
+      </div>
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <form id="upload-form">
+
+            <!-- IMAGES: multiple -->
+            <div class="mb-3">
+              <label class="form-label">Menu Images (optional)</label>
+              <input
+                type="file"
+                class="form-control"
+                id="menu-images"
+                name="menu_images"
+                accept="image/png, image/jpeg, image/jpg, image/webp"
+                multiple
+              >
+              <div class="form-text">You can select multiple JPG/PNG/WEBP images.</div>
+            </div>
+
+            <!-- SINGLE PDF -->
+            <div class="mb-3">
+              <label class="form-label">Menu PDF (optional)</label>
+              <input
+                class="form-control"
+                type="file"
+                id="menu-pdf"
+                name="menu_pdf"
+                accept="application/pdf"
+              >
+              <div class="form-text">Upload a PDF file.</div>
+            </div>
+
+            <!-- MULTI PDF -->
+            <div class="mb-3">
+              <label class="form-label">Additional PDF files (optional)</label>
+              <input
+                class="form-control"
+                type="file"
+                id="menu-pdfs"
+                name="menu_pdfs"
+                accept="application/pdf"
+                multiple
+              >
+              <div class="form-text">You may upload multiple PDF files.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="upload-btn">
+              Upload & Extract
+            </button>
+            <span id="upload-status" class="ms-2 small"></span>
+
+          </form>
+        </div>
+      </div>
+
+      <div class="card mt-3 shadow-sm border-0">
+        <div class="card-header">
+          <span class="fw-semibold">API Response</span>
+        </div>
+        <div class="card-body">
+          <pre id="upload-result"
+               class="small mb-0 text-wrap"
+               style="white-space: pre-wrap;"></pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const UPLOAD_API_URL = "/api/restaurants/upload/";
+  const ACCESS_TOKEN_KEY = "rb_access_token";
+  const USER_KEY = "rb_user";
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.split("=")[1]);
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  const csrftoken = getCookie("csrftoken");
+
+  function getAccessToken() {
+    return localStorage.getItem(ACCESS_TOKEN_KEY);
+  }
+
+  function getUserFromStorage() {
+    try {
+      return JSON.parse(localStorage.getItem(USER_KEY));
+    } catch {
+      return null;
+    }
+  }
+
+  function getAuthHeaders(extra = {}) {
+    const token = getAccessToken();
+    const headers = { ...extra };
+    if (token) {
+      headers["Authorization"] = "Bearer " + token;
+    }
+    return headers;
+  }
+
+  function updateNavUserLabel() {
+    const label = document.getElementById("nav-user-label");
+    const user = getUserFromStorage();
+    const token = getAccessToken();
+
+    if (token && user) {
+      label.textContent = "Logged in as " + (user.username || user.email);
+    } else {
+      label.textContent = "Not logged in";
+    }
+  }
+
+  function showLoginWarningIfNeeded() {
+    const warning = document.getElementById("login-warning");
+    const token = getAccessToken();
+    const uploadBtn = document.getElementById("upload-btn");
+
+    if (!token) {
+      warning.classList.remove("d-none");
+      uploadBtn.disabled = true;
+    } else {
+      warning.classList.add("d-none");
+      uploadBtn.disabled = false;
+    }
+  }
+
+  const form = document.getElementById("upload-form");
+  const statusEl = document.getElementById("upload-status");
+  const resultEl = document.getElementById("upload-result");
+  const uploadBtn = document.getElementById("upload-btn");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    statusEl.textContent = "";
+    resultEl.textContent = "";
+
+    const token = getAccessToken();
+    if (!token) {
+      statusEl.textContent = "No token found. Please login first.";
+      statusEl.classList.add("text-danger");
+      return;
+    }
+
+    const formData = new FormData();
+
+    // Add images (menu_images)
+    const imagesInput = document.getElementById("menu-images");
+    for (const file of imagesInput.files) {
+      formData.append("menu_images", file);
+    }
+
+    // Add single PDF
+    const pdfInput = document.getElementById("menu-pdf");
+    if (pdfInput.files[0]) {
+      formData.append("menu_pdf", pdfInput.files[0]);
+    }
+
+    // Add multiple PDFs (menu_pdfs)
+    const multiPdfs = document.getElementById("menu-pdfs");
+    for (const file of multiPdfs.files) {
+      formData.append("menu_pdfs", file);
+    }
+
+    uploadBtn.disabled = true;
+    statusEl.textContent = "Uploading...";
+
+    try {
+      const res = await fetch(UPLOAD_API_URL, {
+        method: "POST",
+        headers: getAuthHeaders({
+          "X-CSRFToken": csrftoken,
+        }),
+        body: formData,
+      });
+
+      const text = await res.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch {
+        json = { raw: text };
+      }
+
+      if (res.ok) {
+        statusEl.textContent = "Upload successful ✔";
+        statusEl.classList.add("text-success");
+      } else {
+        statusEl.textContent = "Upload failed ❌";
+        statusEl.classList.add("text-danger");
+      }
+
+      resultEl.textContent = JSON.stringify(json, null, 2);
+    } catch (err) {
+      statusEl.textContent = "Error calling API";
+      statusEl.classList.add("text-danger");
+      resultEl.textContent = String(err);
+    } finally {
+      uploadBtn.disabled = false;
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateNavUserLabel();
+    showLoginWarningIfNeeded();
+  });
+</script>
+
+</body>
+</html>

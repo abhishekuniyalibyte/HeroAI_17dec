@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ restaurant.name }} – Chatbot</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Yeh wahi JS hai jo abhi tum apne site pe use kar rahe ho:
+      static/chat-widget.js
+      Is page ko iframe ke andar load kiya jayega: /widget/?token=XXX
+    -->
+    <script
+      src="{{ base_api_url }}/static/chat-widget.js"
+      data-restaurant-id="{{ restaurant.id }}"
+      data-api-base-url="{{ base_api_url }}"
+    ></script>
+  </body>
+</html>

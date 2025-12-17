@@ -1,0 +1,95 @@
+{% extends "owner/base_owner.html" %}
+
+{% block title %}Menu Categories{% endblock %}
+{% block store_name %}Menu Categories{% endblock %}
+
+{% block content %}
+<div class="content-inner">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Categories</h2>
+    <button class="btn btn-primary btn-sm" type="button" disabled>
+      <i class="bi bi-plus-lg"></i> Add Category
+    </button>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <table class="table mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody id="categoryTableBody">
+          <tr>
+            <td colspan="3" class="text-center py-4 text-muted">
+              Loading categories…
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // ✅ This is the DRF endpoint you tested in Postman
+  const API_URL = "/super-admin/owner/categories/";
+  const tbody = document.getElementById("categoryTableBody");
+
+  async function loadCategories() {
+    try {
+      const res = await fetch(API_URL, {
+        headers: window.RB_AUTH_HEADERS(),
+      });
+
+      if (res.status === 401) {
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center text-danger py-4">Unauthorized. Please login again.</td></tr>`;
+        return;
+      }
+
+      if (!res.ok) {
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center text-danger py-4">Failed to load categories (${res.status}).</td></tr>`;
+        return;
+      }
+
+      const data = await res.json();
+      const rows = data.results || [];
+
+      if (!rows.length) {
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted py-4">No categories found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = "";
+      rows.forEach(cat => {
+        const created = cat.created_at ? new Date(cat.created_at).toLocaleString() : "-";
+        tbody.innerHTML += `
+          <tr>
+            <td class="fw-semibold">${cat.name ?? "-"}</td>
+            <td>
+              <span class="badge ${cat.is_active ? "bg-success" : "bg-secondary"}">
+                ${cat.is_active ? "Active" : "Inactive"}
+              </span>
+            </td>
+            <td>${created}</td>
+          </tr>
+        `;
+      });
+
+    } catch (err) {
+      console.error(err);
+      tbody.innerHTML =
+        `<tr><td colspan="3" class="text-center text-danger py-4">Error loading categories</td></tr>`;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadCategories);
+</script>
+{% endblock %}

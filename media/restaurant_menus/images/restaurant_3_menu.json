@@ -1,0 +1,751 @@
+{
+  "restaurant_name": null,
+  "phone": null,
+  "categories": [
+    {
+      "category": "Juice",
+      "items": [
+        {
+          "name": "Water Melon",
+          "price": 60
+        },
+        {
+          "name": "Orange Juice",
+          "price": 60
+        },
+        {
+          "name": "Apple Juice",
+          "price": 60
+        },
+        {
+          "name": "Musk Melon",
+          "price": 80
+        },
+        {
+          "name": "Pineapple Juice",
+          "price": 80
+        },
+        {
+          "name": "Grapes Juice",
+          "price": 80
+        },
+        {
+          "name": "Mango Juice",
+          "price": 80
+        },
+        {
+          "name": "Mix Fruit Juice",
+          "price": 100
+        },
+        {
+          "name": "Coconut Water",
+          "price": 100
+        },
+        {
+          "name": "Mango Lassi",
+          "price": 100
+        },
+        {
+          "name": "Badam Milk",
+          "price": 120
+        }
+      ]
+    },
+    {
+      "category": "Citric Shakes",
+      "items": [
+        {
+          "name": "Orange Shake",
+          "price": 100
+        },
+        {
+          "name": "Lemon Shake",
+          "price": 100
+        },
+        {
+          "name": "Pineapple Shake",
+          "price": 100
+        },
+        {
+          "name": "Mango Shake",
+          "price": 100
+        },
+        {
+          "name": "Black Current Shake",
+          "price": 120
+        },
+        {
+          "name": "Fruit Shake",
+          "price": 120
+        },
+        {
+          "name": "Chocolate Shake",
+          "price": 120
+        },
+        {
+          "name": "Cashew Shake",
+          "price": 120
+        },
+        {
+          "name": "Badam Shake",
+          "price": 120
+        },
+        {
+          "name": "Pista Shake",
+          "price": 120
+        },
+        {
+          "name": "Apple Shake",
+          "price": 120
+        },
+        {
+          "name": "Jinger Shake",
+          "price": 120
+        }
+      ]
+    },
+    {
+      "category": "Fruit Shakes",
+      "items": [
+        {
+          "name": "Chocolate Shake",
+          "price": 100
+        },
+        {
+          "name": "Banana Shake",
+          "price": 100
+        },
+        {
+          "name": "Apple Shake",
+          "price": 100
+        },
+        {
+          "name": "Mango Shake",
+          "price": 100
+        },
+        {
+          "name": "Strawberry Shake",
+          "price": 120
+        },
+        {
+          "name": "Black Current Shake",
+          "price": 120
+        },
+        {
+          "name": "Sitaphal Shake",
+          "price": 120
+        },
+        {
+          "name": "Litchi Shake",
+          "price": 120
+        },
+        {
+          "name": "Oreo Shake",
+          "price": 120
+        },
+        {
+          "name": "Cadbury Shake",
+          "price": 120
+        },
+        {
+          "name": "Kit Kat Shake",
+          "price": 120
+        },
+        {
+          "name": "Coffee Shake",
+          "price": 120
+        },
+        {
+          "name": "Vanilla Shake",
+          "price": 120
+        },
+        {
+          "name": "Tropical Shake",
+          "price": 120
+        },
+        {
+          "name": "Choco Vanilla Shake",
+          "price": 120
+        },
+        {
+          "name": "Choco Caramel Shake",
+          "price": 120
+        },
+        {
+          "name": "Rabdi Shake",
+          "price": 120
+        },
+        {
+          "name": "Rabdi Falooda Shake",
+          "price": 150
+        },
+        {
+          "name": "Cashew Shake",
+          "price": 150
+        },
+        {
+          "name": "Badam Shake",
+          "price": 150
+        },
+        {
+          "name": "Pista Shake",
+          "price": 150
+        },
+        {
+          "name": "Anjeer Shake",
+          "price": 150
+        },
+        {
+          "name": "Coconut Shake",
+          "price": 150
+        },
+        {
+          "name": "Chocolate Fudge Shake",
+          "price": 150
+        },
+        {
+          "name": "Coffee Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Brownie Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Caramel Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Crunch Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Overload Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Hazelnut Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Almond Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Pistachio Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Walnut Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Cashew Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Pecan Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Macadamia Shake",
+          "price": 150
+        }
+      ]
+    },
+    {
+      "category": "Creamy Marvelous Shakes",
+      "items": [
+        {
+          "name": "Choco Brownie Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Caramel Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Crunch Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Overload Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Hazelnut Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Almond Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Pistachio Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Walnut Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Cashew Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Pecan Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Macadamia Shake",
+          "price": 150
+        },
+        {
+          "name": "Coffee Shake",
+          "price": 150
+        },
+        {
+          "name": "Coffee Shake with Ice Cream",
+          "price": 150
+        },
+        {
+          "name": "Choco Coffee Shake",
+          "price": 150
+        },
+        {
+          "name": "Choco Coffee Shake with Ice Cream",
+          "price": 150
+        }
+      ]
+    },
+    {
+      "category": "Cold Coffee",
+      "items": [
+        {
+          "name": "Coffee",
+          "price": 100
+        },
+        {
+          "name": "Cold Coffee",
+          "price": 100
+        },
+        {
+          "name": "Cold Coffee Fudge",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Hazelnut",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Badam",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Vanilla",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Chocolate",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Caramel",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Crunch",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Overload",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Hazelnut",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Almond",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Pistachio",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Walnut",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Cashew",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Pecan",
+          "price": 120
+        },
+        {
+          "name": "Cold Coffee Macadamia",
+          "price": 120
+        }
+      ]
+    },
+    {
+      "category": "Tea/Coffee",
+      "items": [
+        {
+          "name": "Tea",
+          "price": 20
+        },
+        {
+          "name": "Irani Tea",
+          "price": 30
+        },
+        {
+          "name": "Masala Tea",
+          "price": 30
+        },
+        {
+          "name": "Ginger Tea",
+          "price": 30
+        },
+        {
+          "name": "Elaichi Tea",
+          "price": 30
+        },
+        {
+          "name": "Coffee",
+          "price": 50
+        },
+        {
+          "name": "Hot Chocolate",
+          "price": 60
+        },
+        {
+          "name": "Hot Badam Milk",
+          "price": 60
+        },
+        {
+          "name": "Hot Chocolate Badam",
+          "price": 80
+        },
+        {
+          "name": "Hot Chocolate Hazelnut",
+          "price": 80
+        }
+      ]
+    },
+    {
+      "category": "Soups",
+      "items": [
+        {
+          "name": "Cream of Tomato Soup",
+          "price": 100
+        },
+        {
+          "name": "Cream of Broccoli Soup",
+          "price": 100
+        },
+        {
+          "name": "Cream of Mushroom Soup",
+          "price": 100
+        },
+        {
+          "name": "Cream of Spinach Soup",
+          "price": 100
+        },
+        {
+          "name": "Tomato Soup",
+          "price": 80
+        },
+        {
+          "name": "Veg Clear Soup",
+          "price": 80
+        },
+        {
+          "name": "Sweet Corn Soup",
+          "price": 80
+        },
+        {
+          "name": "Hot & Sour Soup",
+          "price": 80
+        },
+        {
+          "name": "Lemon Coriander Soup",
+          "price": 80
+        },
+        {
+          "name": "Manhattan Soup",
+          "price": 100
+        }
+      ]
+    },
+    {
+      "category": "Sandwiches with Chilli",
+      "items": [
+        {
+          "name": "Veg Sandwich",
+          "price": 100
+        },
+        {
+          "name": "Grilled Sandwich",
+          "price": 120
+        },
+        {
+          "name": "Cheese Sandwich",
+          "price": 120
+        },
+        {
+          "name": "Veg Cheese Sandwich",
+          "price": 140
+        },
+        {
+          "name": "Club Sandwich",
+          "price": 160
+        },
+        {
+          "name": "Veg Mayo Sandwich",
+          "price": 120
+        },
+        {
+          "name": "Veg Mayo Grilled Sandwich",
+          "price": 140
+        },
+        {
+          "name": "Veg Mayo Cheese Sandwich",
+          "price": 160
+        },
+        {
+          "name": "Veg Mayo Club Sandwich",
+          "price": 180
+        }
+      ]
+    },
+    {
+      "category": "Food in Jar",
+      "items": [
+        {
+          "name": "Veg Mayo Sandwich",
+          "price": 100
+        },
+        {
+          "name": "Veg Cheese Sandwich",
+          "price": 120
+        },
+        {
+          "name": "Veg Mayo Grilled Sandwich",
+          "price": 140
+        },
+        {
+          "name": "Veg Mayo Cheese Sandwich",
+          "price": 160
+        },
+        {
+          "name": "Veg Mayo Club Sandwich",
+          "price": 180
+        },
+        {
+          "name": "Cheese Loaded Toast",
+          "price": 150
+        },
+        {
+          "name": "Chilli Cheese Toast",
+          "price": 150
+        },
+        {
+          "name": "Masala Sandwich",
+          "price": 120
+        },
+        {
+          "name": "Masala Grilled Sandwich",
+          "price": 140
+        },
+        {
+          "name": "Masala Cheese Sandwich",
+          "price": 160
+        }
+      ]
+    },
+    {
+      "category": "Veg Pizza",
+      "items": [
+        {
+          "name": "Onion Pizza",
+          "price": 210
+        },
+        {
+          "name": "Tomato Pizza",
+          "price": 210
+        },
+        {
+          "name": "Capsicum Pizza",
+          "price": 210
+        },
+        {
+          "name": "Mushroom Pizza",
+          "price": 230
+        },
+        {
+          "name": "Corn Pizza",
+          "price": 230
+        },
+        {
+          "name": "Jalapeno Pizza",
+          "price": 230
+        },
+        {
+          "name": "Paneer Tikka Pizza",
+          "price": 250
+        },
+        {
+          "name": "Veggie Delight Pizza",
+          "price": 250
+        },
+        {
+          "name": "Margherita Pizza",
+          "price": 230
+        },
+        {
+          "name": "BBQ Veg Pizza",
+          "price": 250
+        },
+        {
+          "name": "Roasted Veg Pizza",
+          "price": 250
+        },
+        {
+          "name": "Tandoori Paneer Pizza",
+          "price": 280
+        },
+        {
+          "name": "Veg Supreme Pizza",
+          "price": 280
+        },
+        {
+          "name": "Veg Extravaganza Pizza",
+          "price": 280
+        }
+      ]
+    },
+    {
+      "category": "Baked Pasta",
+      "items": [
+        {
+          "name": "Veg Baked Pasta",
+          "price": 140
+        },
+        {
+          "name": "Veg Alfredo Pasta",
+          "price": 160
+        },
+        {
+          "name": "Veg Mac N Cheese Pasta",
+          "price": 180
+        },
+        {
+          "name": "Veg Italian Pasta",
+          "price": 200
+        }
+      ]
+    },
+    {
+      "category": "Delicious Dry Snacks",
+      "items": [
+        {
+          "name": "Veg Samosa",
+          "price": 60
+        },
+        {
+          "name": "Veg Spring Roll",
+          "price": 60
+        },
+        {
+          "name": "Veg Pakora",
+          "price": 60
+        },
+        {
+          "name": "Paneer Pakora",
+          "price": 80
+        },
+        {
+          "name": "Veg Cutlet",
+          "price": 80
+        },
+        {
+          "name": "Veg Fingers",
+          "price": 80
+        },
+        {
+          "name": "Veg Nuggets",
+          "price": 100
+        },
+        {
+          "name": "Veg Balls",
+          "price": 100
+        },
+        {
+          "name": "Veg Manchurian",
+          "price": 120
+        },
+        {
+          "name": "Veg Chilli",
+          "price": 120
+        },
+        {
+          "name": "Veg Honey Chilli",
+          "price": 140
+        }
+      ]
+    },
+    {
+      "category": "Delicious Snacks",
+      "items": [
+        {
+          "name": "Veg Samosa",
+          "price": 60
+        },
+        {
+          "name": "Veg Spring Roll",
+          "price": 60
+        },
+        {
+          "name": "Veg Pakora",
+          "price": 60
+        },
+        {
+          "name": "Paneer Pakora",
+          "price": 80
+        },
+        {
+          "name": "Veg Cutlet",
+          "price": 80
+        },
+        {
+          "name": "Veg Fingers",
+          "price": 80
+        },
+        {
+          "name": "Veg Nuggets",
+          "price": 100
+        },
+        {
+          "name": "Veg Balls",
+          "price": 100
+        },
+        {
+          "name": "Veg Manchurian",
+          "price": 120
+        },
+        {
+          "name": "Veg Chilli",
+          "price": 120
+        },
+        {
+          "name": "Veg Honey Chilli",
+          "price": 140
+        }
+      ]
+    }
+  ]
+}
