@@ -386,7 +386,7 @@ from django.conf import settings
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
-
+from rest_framework.permissions import AllowAny
 from .serializers import MenuChatRequestSerializer
 from menu.tasks import get_embeddings_path  # helper jo embeddings path deta hai
 
@@ -455,7 +455,8 @@ class MenuChatAPIView(GenericAPIView):
     - Browsable API se HTML form mil jaayega (serializer ke basis pe)
     - POST: {message, restaurant_id} leke reply return karega
     """
-
+    permission_classes = [AllowAny]
+    authentication_classes = []
     serializer_class = MenuChatRequestSerializer
 
     def post(self, request, *args, **kwargs):

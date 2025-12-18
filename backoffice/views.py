@@ -12,7 +12,6 @@ from rest_framework import viewsets
 
 
 
-@login_required
 def super_admin_dashboard(request):
     total_stores = Restaurant.objects.count()
     total_users = User.objects.count()
